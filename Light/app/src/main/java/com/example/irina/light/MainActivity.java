@@ -27,9 +27,25 @@ public class MainActivity extends Activity implements View.OnClickListener {
     ToggleButton redButton;
     ToggleButton greenButton;
     ToggleButton yellowButton;
+    ToggleButton rgbButton;
     int hour = 0;
     int minute = 0;
 
+
+    public int value_1 = 0;
+    public int value_2 = 0;
+    public int value_3 = 0;
+    public int value_4 = 0;
+
+    public int value_5 = 0;
+    public int value_6 = 0;
+    public int value_7 = 0;
+    public int value_8 = 0;
+
+    public int value_9 = 0;
+    public int value_10 = 0;
+    public int value_11 = 0;
+    public int value_12 = 0;
 
     //Сокет, с помощью которого мы будем отправлять данные на Arduino
     BluetoothSocket clientSocket;
@@ -45,11 +61,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
         redButton = (ToggleButton) findViewById(R.id.toggleRedLed);
         greenButton = (ToggleButton) findViewById(R.id.toggleGreenLed);
         yellowButton = (ToggleButton) findViewById(R.id.toggleYellowLed);
+        rgbButton = (ToggleButton) findViewById(R.id.toggleButton) ;
 
         //Добавлем "слушатель нажатий" к кнопке
         redButton.setOnClickListener(this);
         greenButton.setOnClickListener(this);
         yellowButton.setOnClickListener(this);
+        rgbButton.setOnClickListener(this);
         //Включаем bluetooth. Если он уже включен, то ничего не произойдет
         String enableBT = BluetoothAdapter.ACTION_REQUEST_ENABLE;
         startActivityForResult(new Intent(enableBT), 0);
@@ -136,17 +154,57 @@ public class MainActivity extends Activity implements View.OnClickListener {
             //В зависимости от того, какая кнопка была нажата,
             //изменяем данные для посылки
             if (v == redButton) {
-                value = (redButton.isChecked() ? 1 : 0) + 60;
+                value_1 = (redButton.isChecked() ? 1 : 0) + 20;
+                value_2 = (redButton.isChecked() ? 1 : 0) + 50;
+                value_3 = (redButton.isChecked() ? 1 : 0) + 80;
+                value_4 = (redButton.isChecked() ? 1 : 0) + 110;
+
             } else if (v == greenButton) {
-                value = (greenButton.isChecked() ? 1 : 0) + 70;
+                value_1 = (greenButton.isChecked() ? 1 : 0) + 30;
+                value_2 = (greenButton.isChecked() ? 1 : 0) + 60;
+                value_3 = (greenButton.isChecked() ? 1 : 0) + 90;
+                value_4 = (greenButton.isChecked() ? 1 : 0) + 120;
+
             } else if (v == yellowButton) {
-                value = (yellowButton.isChecked() ? 1 : 0) + 50;
+                value_1 = (yellowButton.isChecked() ? 1 : 0) + 40;
+                value_2 = (yellowButton.isChecked() ? 1 : 0) + 70;
+                value_3 = (yellowButton.isChecked() ? 1 : 0) + 100;
+                value_4 = (yellowButton.isChecked() ? 1 : 0) + 130;
+
+            } else if (v == rgbButton) {
+               value_1 = (rgbButton.isChecked() ? 1 : 0) + 40;
+               value_2 = (rgbButton.isChecked() ? 1 : 0) + 70;
+               value_3 = (rgbButton.isChecked() ? 1 : 0) + 100;
+               value_4 = (rgbButton.isChecked() ? 1 : 0) + 130;
+
+                value_5 = (rgbButton.isChecked() ? 1 : 0) + 20;
+                value_6 = (rgbButton.isChecked() ? 1 : 0) + 50;
+                value_7 = (rgbButton.isChecked() ? 1 : 0) + 800;
+                value_8 = (rgbButton.isChecked() ? 1 : 0) + 110;
+
+               value_9 = (rgbButton.isChecked() ? 1 : 0) + 30;
+               value_10 = (rgbButton.isChecked() ? 1 : 0) + 60;
+               value_11 = (rgbButton.isChecked() ? 1 : 0) + 90;
+               value_12 = (rgbButton.isChecked() ? 1 : 0) + 120;
             }
 
+            //outStream.write(hour);
             //Пишем данные в выходной поток
-            outStream.write(value);
-            outStream.write(hour);
-            outStream.write(minute);
+            outStream.write(value_1);
+            outStream.write(value_2);
+            outStream.write(value_3);
+            outStream.write(value_4);
+
+            outStream.write(value_5);
+            outStream.write(value_6);
+            outStream.write(value_7);
+            outStream.write(value_8);
+
+            outStream.write(value_9);
+            outStream.write(value_10);
+            outStream.write(value_11);
+            outStream.write(value_12);
+            // outStream.write(minute);
 
         } catch (IOException e) {
             //Если есть ошибки, выводим их в лог
